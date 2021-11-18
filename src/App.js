@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Component } from "react";
+import AddTodo from "./components/addTodo";
+import React from "react";
+import TodoList from "./components/todoList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    // todo: ["study", "xx"],
+    todo: [
+      { value: "Maha", selected: false },
+      { value: "Medhat", selected: false },
+    ],
+    styles: [{ textDecoration: "line-through" }],
+  };
+
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+    console.log(this.state.todo);
+  }
+  handelAdd = () => {
+    this.state.todo = this.state.todo.concat({
+      value: this.myRef.current.value,
+      selected: false,
+    });
+    console.log(this.state.todo);
+    this.setState(this.state.todo);
+    this.myRef.current.value = "";
+  };
+  handleClick = (e) => {
+    const index = Number(e.target.getAttribute("data-index"));
+    const todoList = this.state.todo.map((item, idx) => {
+      if (idx === index) {
+        item.selected = e.target.checked;
+      }
+      return item;
+    });
+
+    this.setState({ todo: todoList });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Todo List</h1>
+        <input type="text" ref={this.myRef} />
+        <AddTodo onAdd={this.handelAdd} />
+        <TodoList todo={this.state.todo} onClick={this.handleClick} />
+      </div>
+    );
+  }
 }
 
 export default App;
