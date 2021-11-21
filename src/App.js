@@ -43,8 +43,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Todo List</h1>
-        <input type="text" ref={this.myRef} />
+        <h1 className="title">Todo List</h1>
+        <input type="text" className="todo_input" ref={this.myRef} />
         <AddTodo onAdd={this.handelAdd} />
         <TodoList todo={this.state.todo} onClick={this.handleClick} />
       </div>

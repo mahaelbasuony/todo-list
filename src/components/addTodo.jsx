@@ -3,7 +3,9 @@ class AddTodo extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.onAdd}>Add</button>
+        <button className="todo_list_add_btn" onClick={this.props.onAdd}>
+          Add
+        </button>
       </div>
     );
   }
